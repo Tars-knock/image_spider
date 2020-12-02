@@ -23,14 +23,20 @@ def main():
     for page in range(1, pages+1):
         base_url = 'https://image.baidu.com/search/index?tn=baiduimage&ps=1&ct=201326592&lm=-1&cl=2&nc=1&ie=utf-8'
         headers = {
-            'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:83.0) Gecko/20100101 Firefox/83.0'
+            'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:83.0) Gecko/20100101 Firefox/83.0',
+             "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9"
         }
-        html = requests.get(base_url, headers=headers, params={'word': word, 'pn': pages})
+        param = {'word': word, 'pn': page }
+        html = requests.get(base_url, headers=headers, params=param)
         # print(html.url)
 
         html.encoding = 'utf-8'
-        # print(html.text)
+        #print(html.text)
         image_url = re.findall('"thumbURL":"(.*?)",', html.text)
+        if not image_url:
+            print(检测到百度反爬虫，建议几分钟后尝试)
+            print(html.text)
+
         # print(image_url)
         way = 'C:\\Users\\小凯文\\Desktop\\{}\\'.format(word)
         if not os.path.exists(way):

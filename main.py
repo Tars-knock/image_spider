@@ -34,7 +34,7 @@ def main():
         #print(html.text)
         image_url = re.findall('"thumbURL":"(.*?)",', html.text)
         if not image_url:
-            print(检测到百度反爬虫，建议几分钟后尝试)
+            print("检测到百度反爬虫，建议几分钟后尝试")
             print(html.text)
 
         # print(image_url)
